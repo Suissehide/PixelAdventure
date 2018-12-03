@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pixel Adventure{% endblock %}
+
+{% block body %}
+
+    <div id="stageElement"></div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/three.js') }}"></script>
+    <script src="{{ asset('js/simplex-noise.js') }}"></script>
+    <script src="{{ asset('js/synthwave.js') }}"></script>
+{% endblock %}

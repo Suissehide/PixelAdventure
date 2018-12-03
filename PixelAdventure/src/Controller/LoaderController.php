@@ -14,9 +14,9 @@ class LoaderController extends AbstractController
     /**
      * @Route("/", name="loader")
      */
-    public function index()
+    public function loader()
     {
-        return $this->render('loader/index.html.twig', [
+        return $this->render('index/loader.html.twig', [
             'controller_name' => 'LoaderController',
         ]);
     }

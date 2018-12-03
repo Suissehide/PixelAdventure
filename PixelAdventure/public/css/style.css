@@ -1,0 +1,35 @@
+*, *:before, *:after {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+html, body {
+    display: block;
+    max-width: 100vw;
+    min-height: 100vh;
+}
+
+body {
+    overflow: hidden;
+    position: relative;
+    background-color: black;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: 170vh;
+    font-family: 'Denk One', Arial, sans-serif;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 1.2em;
+    color: #f0f0f0;
+}
+
+#stageElement {
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
