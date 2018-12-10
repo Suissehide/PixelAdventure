@@ -51,7 +51,7 @@ const deviceInfo = (function () {
  * Loader Helper
  */
 const LoaderHelper = {
-    _base: 'https://raw.githubusercontent.com/rainner/codepen-assets/master/',
+    _base: '../../assets/img',
     _data: {},
     _loaded: 0,
     _cb: null,
@@ -111,6 +111,80 @@ const addEase = (pos, to, ease) => {
 };
 
 /**
+ * Mountains object
+ */
+const mountains = {
+    group: null,
+    simplex: null,
+    geometry: null,
+    factor: 1000, // smoothness 
+    scale: 500, // terrain size
+    speed: 0.0000, // move speed 
+    cycle: 0,
+    ease: 18,
+    move: { x: 0, y: 0, z: -3500 },
+    look: { x: 0, y: 0, z: 0 },
+
+    create(scene) {
+        this.group = new THREE.Object3D();
+        this.group.position.set(this.move.x, this.move.y, this.move.z);
+        this.group.rotation.set(this.look.x, this.look.y, this.look.z);
+
+        this.simplex = new SimplexNoise();
+        this.geometry = new THREE.PlaneGeometry(10000, 1000, 128, 32);
+
+        let texture = LoaderHelper.get('mountainTexture');
+        texture.wrapT = THREE.RepeatWrapping;
+        texture.wrapS = THREE.RepeatWrapping;
+
+        let material = new THREE.MeshPhongMaterial({
+            color: 0xffffff,
+            opacity: 1,
+            map: texture,
+            blending: THREE.NoBlending,
+            side: THREE.BackSide,
+            transparent: false,
+            depthTest: false,
+        });
+
+        let terrain = new THREE.Mesh(this.geometry, material);
+        terrain.position.set(0, -500, -3000);
+        terrain.rotation.x = (Math.PI / 2) + 1.35;
+
+        let light = new THREE.PointLight(0xffffff, 12, 5500);
+        light.position.set(0, 1200, -3500);
+        light.castShadow = false;
+        light.color = commonColor;
+
+        this.movePlain();
+        this.group.add(terrain);
+        this.group.add(light);
+        scene.add(this.group);
+    },
+
+    // make new mointain plain 
+    movePlain() {
+        for (let vertex of this.geometry.vertices) {
+            let xoff = (vertex.x / this.factor);
+            let yoff = (vertex.y / this.factor) + this.cycle;
+            let rand = this.simplex.noise2D(xoff, yoff) * this.scale;
+            vertex.z = rand;
+        }
+        this.geometry.verticesNeedUpdate = true;
+        this.cycle -= this.speed;
+    },
+
+    // update 
+    update(mouse) {
+        this.move.x = -(mouse.x * 0.02);
+        this.movePlain();
+        addEase(this.group.position, this.move, this.ease);
+        addEase(this.group.rotation, this.look, this.ease);
+    },
+};
+
+
+/**
  * Ground object
  */
 const groundPlain = {
@@ -121,7 +195,7 @@ const groundPlain = {
     simplex: null,
     factor: 300, // smoothness 
     scale: 30, // terrain size
-    speed: 0.015, // move speed 
+    speed: - 0.015, // move speed 
     cycle: 0,
     ease: 12,
     move: { x: 0, y: -300, z: -1000 },
@@ -211,6 +285,7 @@ const setupScene = () => {
     scene.add(light);
 
     // setup objects 
+    mountains.create(scene);
     groundPlain.create(scene);
 
     // on page resize
@@ -237,6 +312,7 @@ const setupScene = () => {
             commonColor.setHSL(commonHue, .8, .5);
         }
         // update objects 
+        mountains.update(mouse);
         groundPlain.update(mouse);
 
         // render scene 
@@ -248,4 +324,5 @@ const setupScene = () => {
 
 // init 
 LoaderHelper.onReady(setupScene);
-LoaderHelper.loadTexture('engineTexture', 'images/water.jpg'); 
+LoaderHelper.loadTexture('engineTexture', 'gfx/water.jpg');
+LoaderHelper.loadTexture('mountainTexture', 'gfx/terrain2.jpg'); 

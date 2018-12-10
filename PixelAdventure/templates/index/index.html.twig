@@ -2,14 +2,232 @@
 
 {% block title %}Pixel Adventure{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/cassette.css') }}">
+{% endblock %}
+
 {% block body %}
+    <div class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="logo-parent w-nav-logo">
+                <img src="" class="logo-child">
+            </a>
+            <nav role="navigation" class="nav-menu w-nav-menu">
+                <a href="/about" class="nav-link-child w-nav-link">About</a>
+                <a href="/about" class="nav-link-child w-nav-link">Work</a>
+                <a href="/about" class="nav-link-child w-nav-link">Blog</a>
+            </nav>
+            <div class="hamburger w-nav-button"></div>
+        </div>
+    </div>
 
-    <div id="stageElement"></div>
+    {# <div class="triangle"></div> #}
+    <div class="hero-content adventure"></div>
 
+    <!-- Custom Mouse Cursor -->
+    <div class="cursor cursor-a"></div>
+    <div class="cursor cursor-b">
+        <div class="cursor-v"></div>
+        <div class="badge">
+            <h1 class="text-cursor">Click & Hold</h1>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('js/three.js') }}"></script>
     <script src="{{ asset('js/simplex-noise.js') }}"></script>
+    <script src="{{ asset('js/lettering.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+
     <script src="{{ asset('js/synthwave.js') }}"></script>
+    <script>
+
+        $(document).ready(function () {
+            if ($(window).width() <= 991) {
+                $('.cursor-a').remove();
+            }
+        });
+        $(document).on({
+            mouseenter: function () {
+                $('.text-cursor').css('display', 'block');
+            },
+            mouseleave: function () {
+                $('.text-cursor').css('display', 'none');
+            }
+        }, '.adventure');
+
+        $(document).on({
+            mouseenter: function () {
+                $('.text-cursor').css('display', 'none');
+            },
+            mouseleave: function () {
+                $('.text-cursor').css('display', 'block');
+            }
+        }, '.navbar');
+
+        $(document).on({
+            mouseenter: function () {
+                $('.text-cursor').css('display', 'none');
+            },
+            mouseleave: function () {
+                $('.text-cursor').css('display', 'block');
+            }
+        }, '.sticky-sidebar');
+
+        $(function () {
+            $(".text-cursor").lettering();
+        });
+
+        if ($(window).width() >= 991) {
+
+            $(document).mousemove(function (e) {
+                $('.cursor')
+                    .eq(0)
+                    .css({left: e.clientX, top: e.clientY});
+                setTimeout(function () {
+                    $('.cursor')
+                        .eq(1)
+                        .css({left: e.clientX, top: e.clientY});
+                }, 100);
+            })
+
+            $(document).on("mousemove", function (e) {
+                mouseX = e.pageX;
+                mouseY = e.pageY;
+            });
+            $('.hero-content').mousedown(() => {
+                $('.cursor-v').css('transform', 'scale(0.7)');
+                $('.text-cursor').fadeOut(300);
+            });
+            $('.hero-content').mouseup(() => {
+                $('.cursor-v').css('transform', '');
+                $('.text-cursor').fadeIn(300);
+            });
+            $("a").on("mouseenter", function () {
+                $('.cursor-a').addClass("active");
+                $('.cursor-v').addClass("active");
+            });
+            $("a").on("mouseleave", function () {
+                $('.cursor-a').removeClass("active");
+                $('.cursor-v').removeClass("active");
+            });
+        }
+
+        //Magnetic Logo Effect
+        if ($(window).width() >= 991) {
+            $('.logo-parent').mouseleave(function (e) {
+                TweenMax.to(this, 0.6, {
+                    height: 180,
+                    width: 180
+                });
+                TweenMax.to('.logo-child', 0.3, {
+                    scale: 1,
+                    x: 0,
+                    y: 0
+                });
+            });
+
+            $('.logo-parent').mouseenter(function (e) {
+                TweenMax.to(this, 0.3, {
+                    height: 180,
+                    width: 180
+                });
+                TweenMax.to('.logo-child', 0.3, {scale: 1.1});
+            });
+
+            $('.logo-parent').mousemove(function (e) {
+                callParallax(e);
+            });
+
+            function callParallax(e) {
+                parallaxIt(e, '.logo-child', 60);
+            }
+
+            function parallaxIt(e, target, movement) {
+                var $this = $('.logo-parent');
+                var relX = e.pageX - $this.offset().left;
+                var relY = e.pageY - $this.offset().top;
+
+                TweenMax.to(target, 0.3, {
+                    x: (relX - $this.width() / 2) / $this.width() * movement,
+                    y: (relY - $this.height() / 2) / $this.height() * movement,
+                    ease: Power2.easeOut
+                });
+            }
+        }
+
+        //Page Transition Delay
+        $('.container-close, .container-arrow-right').click(function (e) {
+            e.preventDefault();
+            var linkUrl = $(this).attr('href');
+            setTimeout(function (url) {
+                window.location = url;
+            }, 800, linkUrl);
+        });
+
+        //Smooth Scroll
+        if (window.addEventListener) 
+            window.addEventListener('DOMMouseScroll', wheel, false);
+        window.onmousewheel = document.onmousewheel = wheel;
+
+        function wheel(event) {
+            var delta = 0;
+            if (event.wheelDelta) 
+                delta = event.wheelDelta / 40; //controls the scroll wheel range/speed
+            else if (event.detail) 
+                delta = -event.detail / 40;
+            
+            handle(delta);
+            if (event.preventDefault) 
+                event.preventDefault();
+            event.returnValue = false;
+        }
+
+        var goUp = true;
+        var end = null;
+        var interval = null;
+
+        function handle(delta) {
+            var animationInterval = 20; //controls the scroll animation after scroll is done
+            var scrollSpeed = 20; //controls the scroll animation after scroll is done
+
+            if (end == null) {
+                end = $(window).scrollTop();
+            }
+            end -= 20 * delta;
+            goUp = delta > 0;
+
+            if (interval == null) {
+                interval = setInterval(function () {
+                    var scrollTop = $(window).scrollTop();
+                    var step = Math.round((end - scrollTop) / scrollSpeed);
+                    if (scrollTop <= 0 || scrollTop >= $(window).prop("scrollHeight") - $(window).height() || goUp && step > -1 || !goUp && step < 1) {
+                        clearInterval(interval);
+                        interval = null;
+                        end = null;
+                    }
+                    $(window).scrollTop(scrollTop + step);
+                }, animationInterval);
+            }
+        }
+    </script>
+
+    <script>
+        const preloader = () => {
+
+            setTimeout(() => {
+                cursorHide();
+            }, 4500);
+        }
+
+        const cursorHide = () => {
+            $('.cursor-a').css({'visibility': 'visible', 'display': 'block'});
+            $('.cursor-b').css({'visibility': 'visible', 'display': 'block'});
+            $('.badge').css({'visibility': 'visible', 'display': 'block'});
+        }
+
+        preloader();
+    </script>
+
 {% endblock %}
