@@ -2,24 +2,39 @@
 
 {% block title %}Pixel Adventure{% endblock %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/cassette.css') }}">
-{% endblock %}
+{% block stylesheets %}{% endblock %}
 
 {% block body %}
     <div class="navbar">
         <div class="navbar-container">
             <a href="/" class="logo-parent w-nav-logo">
-                <img src="" class="logo-child">
+                <img src="../../assets/img/home/logo.png" width="150" class="logo-child">
             </a>
             <nav role="navigation" class="nav-menu w-nav-menu">
-                <a href="/about" class="nav-link-child w-nav-link">About</a>
-                <a href="/about" class="nav-link-child w-nav-link">Work</a>
-                <a href="/about" class="nav-link-child w-nav-link">Blog</a>
+                <a class="nav-link-child link link--mallki w-nav-link" href="#">About
+                    <span data-letters="About"></span>
+                    <span data-letters="About"></span>
+                </a>
+                <a class="nav-link-child link link--mallki w-nav-link" href="#">Work
+                    <span data-letters="Work"></span>
+                    <span data-letters="Work"></span>
+                </a>
+                <a class="nav-link-child link link--mallki w-nav-link" href="#">Blog
+                    <span data-letters="Blog"></span>
+                    <span data-letters="Blog"></span>
+                </a>
+                {# <a href="/about" class="nav-link-child w-nav-link">Blog</a> #}
             </nav>
             <div class="hamburger w-nav-button"></div>
         </div>
     </div>
+
+    {# <div class="grid__item">
+        <a class="link link--mallki" href="#">About
+            <span data-letters="About"></span>
+            <span data-letters="About"></span>
+        </a>
+    </div> #}
 
     {# <div class="triangle"></div> #}
     <div class="hero-content adventure"></div>
