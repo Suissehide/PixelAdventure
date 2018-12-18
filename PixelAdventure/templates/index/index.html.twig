@@ -8,18 +8,18 @@
     <div class="navbar">
         <div class="navbar-container">
             <a href="/" class="logo-parent w-nav-logo">
-                <img src="../../assets/img/home/logo.png" width="150" class="logo-child">
+                <img src="../../assets/img/home/logo-name.png" width="200" class="logo-child">
             </a>
             <nav role="navigation" class="nav-menu w-nav-menu">
-                <a class="nav-link-child link link--mallki w-nav-link" href="#">About
+                <a class="nav-link-child link w-nav-link" href="{{ path('about') }}">About
                     <span data-letters="About"></span>
                     <span data-letters="About"></span>
                 </a>
-                <a class="nav-link-child link link--mallki w-nav-link" href="#">Work
+                <a class="nav-link-child link w-nav-link" href="{{ path('work') }}">Work
                     <span data-letters="Work"></span>
                     <span data-letters="Work"></span>
                 </a>
-                <a class="nav-link-child link link--mallki w-nav-link" href="#">Blog
+                <a class="nav-link-child link w-nav-link" href="{{ path('blog') }}">Blog
                     <span data-letters="Blog"></span>
                     <span data-letters="Blog"></span>
                 </a>
@@ -38,6 +38,22 @@
 
     {# <div class="triangle"></div> #}
     <div class="hero-content adventure"></div>
+
+    <footer class="footer">
+        <aside class="sidebar aside--left">
+            <div class="sidebar__social">
+                <h4>Me suivre</h4>
+                <ul>
+                    <li class="sidebar__account">
+                        <a href="" target="_blank">
+                            <svg class="icon"></svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <nav class="footer__nav"></nav>
+    </footer>
 
     <!-- Custom Mouse Cursor -->
     <div class="cursor cursor-a"></div>
