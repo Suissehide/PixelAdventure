@@ -48,10 +48,68 @@ const deviceInfo = (function () {
 })();
 
 /**
+ * Music player helper 
+ */
+const musicHelper = (function () {
+    let wrap = document.querySelector('.index');
+    let button = wrap ? wrap.querySelector('.sound-button') : null;
+    let audio = new Audio('http://ice1.somafm.com/u80s-256-mp3');
+    let step = 0.01;
+    let active = false;
+    let sto = null;
+
+    let fadeIn = () => {
+        audio.volume += 0.01;
+        if (audio.volume >= 0.2) { audio.volume = 0.2; return; }
+        sto = setTimeout(fadeIn, 100);
+    };
+
+    let fadeOut = () => {
+        audio.volume -= 0.02;
+        if (audio.volume <= 0.01) { audio.volume = 0; audio.pause(); return; }
+        sto = setTimeout(fadeOut, 100);
+    };
+
+    let play = () => {
+        if (sto) clearTimeout(sto);
+        active = true;
+        // button.textContent = 'Stop music';
+        let promise = audio.play();
+        if (promise !== undefined) {
+            promise.then(_ => {
+                audio.play();
+            }).catch(error => {
+                
+            });
+        }
+        fadeIn();
+    };
+
+    let stop = () => {
+        if (sto) clearTimeout(sto);
+        active = false;
+        // button.textContent = 'Play music';
+        fadeOut();
+    };
+
+    button.addEventListener('click', e => {
+        e.stopPropagation();
+        e.preventDefault();
+        if (active) { stop(); }
+        else { play(); }
+    });
+
+    audio.preload = 'auto';
+    audio.muted = false;
+    audio.volume = 0;
+    return { play, stop };
+})();
+
+/**
  * Loader Helper
  */
 const LoaderHelper = {
-    _base: '../../assets/img',
+    _base: '../assets/img',
     _data: {},
     _loaded: 0,
     _cb: null,
@@ -268,7 +326,7 @@ const setupScene = () => {
     renderer.setClearColor(0xffffff, 0);
     renderer.sortObjects = true;
     renderer.domElement.setAttribute('id', 'stageElement');
-    document.body.appendChild(renderer.domElement);
+    document.getElementsByClassName("synthwave")[0].appendChild(renderer.domElement);
 
     // setup camera 
     const camera = new THREE.PerspectiveCamera(60, deviceInfo.screenRatio(), 0.1, 20000);
@@ -300,6 +358,12 @@ const setupScene = () => {
         mouse.x = deviceInfo.mouseCenterX(e);
         mouse.y = deviceInfo.mouseCenterY(e);
     });
+
+    // autostart music
+    musicHelper.play();
+    
+    // const isff = ( typeof InstallTrigger !== 'undefined' );
+    // if ( startMusic && isff ) musicHelper.play();
 
     // animation loop 
     const loop = () => {
