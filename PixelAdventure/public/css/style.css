@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     border: 0;
-    /* cursor: none; */
+    cursor: none;
 }
 
 html {
@@ -18,6 +18,7 @@ body {
     font-weight: normal;
     font-size: 14px;
     line-height: 1.2em;
+    background-color: black;
 }
 
 a {
@@ -71,19 +72,89 @@ img::selection {
     display: none;
 }
 
+/* Cookie */
+.cookie-overlay {
+    position: fixed;
+    right: 45px;
+    bottom: 5vh;
+    z-index: 10;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-right: 20px;
+    padding-left: 15px;
+    background-color: #b0b2c3;
+}
+
+.cookie-confirmation, .cookie-text, .cookie-link {
+    position: relative;
+    line-height: 1.2em;
+    font-size: 8px;
+}
+
+.cookie-text {
+    margin: 20px 10px 10px 10px;
+    top: -5px;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.cookie-confirmation {
+    margin-left: 5px;
+    color: #000;
+    font-weight: 500;
+}
+
+.cookie-link {
+    color: #EF35FF;
+}
+
+.cookie-link:hover, .cookie-confirmation:hover {
+    text-decoration: none;
+    color: #EF35FF;
+}
+
 /*Preloader*/
 
 .preloader {
+    display: block;
+    position: fixed;
     width: 100%;
     height: 100%;
     background-color: black;
 }
 
+.headphones {
+    position: absolute;
+    display: flex;
+    flex-flow: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #b0b2c3;
+    font-size: 12px;
+}
+
+.headphones__logo {
+    height: 50px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.headphones__logo > img {
+    margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
 /*Index*/
 
 .index {
+    display: none;
     width: 100%;
     height: 100%;
+    position: fixed;
     background-color: black;
     /* background: -webkit-repeating-linear-gradient( top, black 0px, transparent 2px, rgba(0, 0, 0, 0.25) 2px, rgba(0, 0, 0, 0.25) 4px); */
     background-image: url("../assets/img/gfx/sunset2.png");
@@ -102,15 +173,9 @@ img::selection {
     z-index: -1;
 }
 
-.triangle {
-    background: url("../assets/img/gfx/triangle.png") no-repeat center;
-}
-
 .adventure {
+    /* display: none; */
     background: url("../assets/img/gfx/adventure.png") no-repeat center;
-}
-
-.triangle, .adventure {
     background-size: 120%;
     height: 550px;
     width: 550px;
@@ -119,6 +184,40 @@ img::selection {
     margin-left: -265px;
     top: -70px;
 }
+
+.intro-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -2.2vw
+}
+
+.intro-container .intro-descriptor {
+    left: 0;
+    margin-top: 90px;
+    width: 100%;
+    transform: translateX(-50%);
+    white-space: nowrap
+}
+
+.octagon-logo {
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -2px
+}
+
+.octagon-svg-shape {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 130px;
+    height: 130px;
+    margin: -65px 0 0 -65px
+}
+
 
 /*Navbar*/
 

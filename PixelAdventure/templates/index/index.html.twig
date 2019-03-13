@@ -7,7 +7,12 @@
 {% block body %}
 
 <div class="preloader">
-
+    <div class="headphones">
+        <div class="headphones__logo">
+            <img src="{{ asset('assets/img/gfx/headset.png') }}" width="50">
+        </div>
+        <p>Pour avoir une meilleure expérience </br>utilise ton casque</p>
+    </div>
 </div>
 
 <div class="index">
@@ -45,8 +50,57 @@
         </div>
     </div>
 
-    {# <div class="triangle"></div> #}
-    <div class="hero-content adventure"></div>
+    {# <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="click-hold">
+        <path d="M3,15 l10,0 V27 H23 v10 h10
+                C33,43 38,47 43,47 c0,5 5,10 10,10
+                S63,67 63,67       s-10,10 10,10
+                Q50,50 73,57       q20,-5 0,-10
+                T70,40             t0,-15
+                A5,5 45 1 0 40,20  a5,5 20 0 1 -10,-10
+                Z" style="stroke-dasharray: 149, 319.086;"></path>
+        <g id="duplicate"></g>
+    </svg> #}
+
+    <div class="adventure"></div>
+
+    <div class="intro-container">
+    <div class="octagon-click-hold-container general-octagon-container" data-state="off">
+                <div class="octagon-svg-shape click-hold">
+                    <svg class="octagon-path" data-name="Layer 1" 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="-2 -2 163 163">
+                        <path class="cls-1" d="M79.73.35a15.94,15.94,0,0,1,6,1.2l44.89,18.53a16,16,0,0,1,8.63,8.61l18.63,44.84a16,16,0,0,1,0,12.19l-18.54,44.89a16,16,0,0,1-8.61,8.63L85.91,157.88a16,16,0,0,1-12.2,0L28.83,139.36a16,16,0,0,1-8.63-8.61L1.56,85.91a16,16,0,0,1,0-12.19L20.08,28.83a16,16,0,0,1,8.61-8.63L73.54,1.56A16,16,0,0,1,79.67.35h.06"/>
+                    </svg>
+                </div>
+
+                <div class="octagon-svg-shape intro-click-hold-drawer">
+                    <svg class="octagon-path" data-name="Layer 1" 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="-2 -2 163 163">
+                        <path class="cls-2" d="M79.73.35a15.94,15.94,0,0,1,6,1.2l44.89,18.53a16,16,0,0,1,8.63,8.61l18.63,44.84a16,16,0,0,1,0,12.19l-18.54,44.89a16,16,0,0,1-8.61,8.63L85.91,157.88a16,16,0,0,1-12.2,0L28.83,139.36a16,16,0,0,1-8.63-8.61L1.56,85.91a16,16,0,0,1,0-12.19L20.08,28.83a16,16,0,0,1,8.61-8.63L73.54,1.56A16,16,0,0,1,79.67.35h.06"/>
+                    </svg>
+                </div>
+                <div class="octagon-logo">
+                    <div class="bee-flap bee-wrap" data-flapping-state="flapping">
+                        <div class="bee-flap-wrap-1">
+                            <div class="bee-shape bee-flap-1"></div>
+                        </div>
+                        <div class="bee-flap-wrap-2">
+                            <div class="bee-shape bee-flap-2"></div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+            </div>
+
+    <!-- Cookie -->
+    <div class="cookie-overlay">
+        <img src="{{ asset('assets/img/gfx/cookie.png') }}" width="25px">
+        <h3 class="cookie-text">This website use 
+            <a href="/cookie-policy" target="_blank" class="cookie-link">cookies</a>
+        </h3>
+        <a href="#" class="cookie-confirmation">OK</a>
+    </div>
 
     <footer class="footer">
         <aside class="sidebar sidebar--left">
@@ -85,6 +139,7 @@
             <h1 class="text-cursor">Click & Hold</h1>
         </div>
     </div>
+
 {% endblock %}
 
 {% block javascripts %}
@@ -93,7 +148,7 @@
     <script src="{{ asset('js/lettering.js') }}"></script>
     <script src="{{ asset('js/TweenMax.min.js') }}"></script>
 
-    <script src="{{ asset('js/synthwave.js') }}"></script>
+    {# <script src="{{ asset('js/synthwave.js') }}"></script> #}
     <script src="{{ asset('js/useless.js') }}"></script>
     <script>
 
@@ -141,11 +196,11 @@
                 mouseX = e.pageX;
                 mouseY = e.pageY;
             });
-            $('.hero-content').mousedown(() => {
+            $('.click-hold').mousedown(() => {
                 $('.cursor-v').css('transform', 'scale(0.7)');
                 $('.text-cursor').fadeOut(300);
             });
-            $('.hero-content').mouseup(() => {
+            $('.click-hold').mouseup(() => {
                 $('.cursor-v').css('transform', '');
                 $('.text-cursor').fadeIn(300);
             });
@@ -272,10 +327,14 @@
 
     <script>
         const preloader = () => {
+            $(".preloader").fadeOut( "slow", function() {
 
-            setTimeout(() => {
-                cursorHide();
-            }, 1500);
+                TweenMax.to($('.index') , 1.2, {autoAlpha: 1, display:'block'});
+
+                setTimeout(() => {
+                    cursorHide();
+                }, 4500);
+            });
         }
 
         const cursorHide = () => {
@@ -284,7 +343,27 @@
             $('.badge').css({'visibility': 'visible', 'display': 'block'});
         }
 
-        preloader();
+        setTimeout(() => {
+            preloader();                
+        }, 2000);
+
+
+        //Cookie Overaly Pop-up
+        var Webflow = Webflow || [];
+        Webflow.push(function() {
+            // Load cookie library
+            $.getScript('https://cdn.rawgit.com/js-cookie/js-cookie/v2.1.2/src/js.cookie.js', function() {
+                if (Cookies.get('notice') !== undefined) {
+                    $('.cookie-overlay').remove();
+                }
+                $('.cookie-confirmation').click(function() {
+                    console.log("hey");
+                    var expireTime = new Date(new Date().getTime() + 60000 * 60 * 24 * 365 );
+                    Cookies.set('notice', 'shown', { expires: expireTime });
+                });
+            });
+        });
+
     </script>
 
     <script>
