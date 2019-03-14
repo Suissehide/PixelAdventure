@@ -50,22 +50,12 @@
         </div>
     </div>
 
-    {# <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="click-hold">
-        <path d="M3,15 l10,0 V27 H23 v10 h10
-                C33,43 38,47 43,47 c0,5 5,10 10,10
-                S63,67 63,67       s-10,10 10,10
-                Q50,50 73,57       q20,-5 0,-10
-                T70,40             t0,-15
-                A5,5 45 1 0 40,20  a5,5 20 0 1 -10,-10
-                Z" style="stroke-dasharray: 149, 319.086;"></path>
-        <g id="duplicate"></g>
-    </svg> #}
-
     <div class="adventure"></div>
 
+
     <div class="intro-container">
-    <div class="octagon-click-hold-container general-octagon-container" data-state="off">
-                <div class="octagon-svg-shape click-hold">
+        <div class="octagon-click-hold-container general-octagon-container" data-state="off">
+                <div class="octagon-svg-shape intro-click-hold">
                     <svg class="octagon-path" data-name="Layer 1" 
                         xmlns="http://www.w3.org/2000/svg" 
                         viewBox="-2 -2 163 163">
@@ -80,18 +70,8 @@
                         <path class="cls-2" d="M79.73.35a15.94,15.94,0,0,1,6,1.2l44.89,18.53a16,16,0,0,1,8.63,8.61l18.63,44.84a16,16,0,0,1,0,12.19l-18.54,44.89a16,16,0,0,1-8.61,8.63L85.91,157.88a16,16,0,0,1-12.2,0L28.83,139.36a16,16,0,0,1-8.63-8.61L1.56,85.91a16,16,0,0,1,0-12.19L20.08,28.83a16,16,0,0,1,8.61-8.63L73.54,1.56A16,16,0,0,1,79.67.35h.06"/>
                     </svg>
                 </div>
-                <div class="octagon-logo">
-                    <div class="bee-flap bee-wrap" data-flapping-state="flapping">
-                        <div class="bee-flap-wrap-1">
-                            <div class="bee-shape bee-flap-1"></div>
-                        </div>
-                        <div class="bee-flap-wrap-2">
-                            <div class="bee-shape bee-flap-2"></div>
-                        </div>                        
-                    </div>
-                </div>
-            </div>
-            </div>
+        </div>
+    </div>
 
     <!-- Cookie -->
     <div class="cookie-overlay">
@@ -146,10 +126,12 @@
     <script src="{{ asset('js/three.js') }}"></script>
     <script src="{{ asset('js/simplex-noise.js') }}"></script>
     <script src="{{ asset('js/lettering.js') }}"></script>
-    <script src="{{ asset('js/TweenMax.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+    <script src="{{ asset('js/drawSVGPlugin.min.js') }}"></script>
 
-    {# <script src="{{ asset('js/synthwave.js') }}"></script> #}
+    <script src="{{ asset('js/synthwave.js') }}"></script>
     <script src="{{ asset('js/useless.js') }}"></script>
+    
     <script>
 
         $(document).ready(function () {
@@ -164,7 +146,7 @@
             mouseleave: function () {
                 $('.text-cursor').css('display', 'none');
             }
-        }, '.adventure');
+        }, '.intro-click-hold-drawer');
 
         $(document).on({
             mouseenter: function () {
@@ -196,11 +178,11 @@
                 mouseX = e.pageX;
                 mouseY = e.pageY;
             });
-            $('.click-hold').mousedown(() => {
+            $('.intro-click-hold-drawer').mousedown(() => {
                 $('.cursor-v').css('transform', 'scale(0.7)');
                 $('.text-cursor').fadeOut(300);
             });
-            $('.click-hold').mouseup(() => {
+            $('.intro-click-hold-drawer').mouseup(() => {
                 $('.cursor-v').css('transform', '');
                 $('.text-cursor').fadeIn(300);
             });
@@ -312,25 +294,60 @@
             }
         }
 
-        /* side menu */
+        // side menu
         $('.sidebar__text a').hover(function() {
             $('.sidebar__text a').removeClass("active");
             $(this).addClass("active");
         })
 
-        /* sound */
+        // sound
         $('.sound-button').on("click", function() {
             $(this).toggleClass("off");
         })
-
     </script>
 
     <script>
+
+        function setInitialSVGPaths() {
+            TweenMax.to(".intro-click-hold-drawer path", .01, {
+                drawSVG: "0%"
+            }),
+            TweenMax.to(".intro-click-hold path", .01, {
+                drawSVG: "0%"
+            })
+        }
+
+        function displayGUI() {
+
+        }
+        setInitialSVGPaths()
+
+        var introClickHoldActivated = 0, introClickHold = 0;
+        $(".octagon-click-hold-container").on("mousedown", function(t) {
+            console.log("click");
+            var e = introClickHold += 1;
+            TweenMax.to(".intro-click-hold-drawer path", 1.8, {
+                drawSVG: "100%",
+                ease: Power2.easeInOut
+            }),
+            setTimeout(function() {
+                e == introClickHold && (projectClickHold = !0)
+            }, 1400)
+        })
+        $(".octagon-click-hold-container").on("mouseup", function(t) {
+            0 == introClickHoldActivated && (
+            TweenMax.to(".intro-click-hold-drawer path", .95, {
+                drawSVG: "0%",
+                ease: Power2.easeOut
+            }),
+            introClickHold += 1)
+        })
+
         const preloader = () => {
-            $(".preloader").fadeOut( "slow", function() {
+            $(".preloader").fadeOut("slow", function() {
 
                 TweenMax.to($('.index') , 1.2, {autoAlpha: 1, display:'block'});
-
+                TweenMax.to(".intro-click-hold path", 2, {drawSVG: "100%", ease: Power0.easeInOut})
                 setTimeout(() => {
                     cursorHide();
                 }, 4500);
@@ -347,29 +364,24 @@
             preloader();                
         }, 2000);
 
-
         //Cookie Overaly Pop-up
-        var Webflow = Webflow || [];
-        Webflow.push(function() {
-            // Load cookie library
-            $.getScript('https://cdn.rawgit.com/js-cookie/js-cookie/v2.1.2/src/js.cookie.js', function() {
-                if (Cookies.get('notice') !== undefined) {
-                    $('.cookie-overlay').remove();
-                }
-                $('.cookie-confirmation').click(function() {
-                    console.log("hey");
-                    var expireTime = new Date(new Date().getTime() + 60000 * 60 * 24 * 365 );
-                    Cookies.set('notice', 'shown', { expires: expireTime });
-                });
+        $.getScript("{{ asset('js/cookie.js') }}", function() {
+            if (Cookies.get('notice') !== undefined) {
+                $('.cookie-overlay').remove();
+            }
+            $('.cookie-confirmation').click(function() {
+                TweenLite.fromTo($(".cookie-overlay") , 0.5, {opacity:1}, {opacity:0, y:20});
+                var expireTime = new Date(new Date().getTime() + 60000 * 60 * 24 * 365 );
+                Cookies.set('notice', 'shown', { expires: expireTime });
             });
         });
-
     </script>
 
     <script>
     /*
      * Replace all SVG images with inline SVG
      */
+
         jQuery('img.svg').each(function(){
             var $img = jQuery(this);
             var imgID = $img.attr('id');
@@ -387,6 +399,7 @@
                 $img.replaceWith($svg);
             }, 'xml');
         });
+
     </script>
 
 {% endblock %}

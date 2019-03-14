@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     border: 0;
-    cursor: none;
+    /* cursor: none; */
 }
 
 html {
@@ -73,10 +73,11 @@ img::selection {
 }
 
 /* Cookie */
+
 .cookie-overlay {
     position: fixed;
-    right: 45px;
-    bottom: 5vh;
+    right: 30px;
+    bottom: 30px;
     z-index: 10;
     display: flex;
     flex-direction: row;
@@ -85,17 +86,17 @@ img::selection {
     padding-right: 20px;
     padding-left: 15px;
     background-color: #b0b2c3;
+    border-radius: 3px;
 }
 
 .cookie-confirmation, .cookie-text, .cookie-link {
     position: relative;
-    line-height: 1.2em;
     font-size: 8px;
 }
 
 .cookie-text {
     margin: 20px 10px 10px 10px;
-    top: -5px;
+    top: -4px;
     color: rgba(0, 0, 0, 0.7);
 }
 
@@ -142,10 +143,10 @@ img::selection {
     margin-bottom: 15px;
 }
 
-.headphones__logo > img {
+.headphones__logo>img {
     margin-left: auto;
-	margin-right: auto;
-	display: block;
+    margin-right: auto;
+    display: block;
 }
 
 /*Index*/
@@ -192,12 +193,11 @@ img::selection {
     margin-top: -2.2vw
 }
 
-.intro-container .intro-descriptor {
+.general-octagon-container {
+    position: absolute;
     left: 0;
-    margin-top: 90px;
-    width: 100%;
-    transform: translateX(-50%);
-    white-space: nowrap
+    top: 0;
+    transition: transform .8s cubic-bezier(.7, .3, 0, 1);
 }
 
 .octagon-logo {
@@ -210,6 +210,7 @@ img::selection {
 }
 
 .octagon-svg-shape {
+    fill: none;
     position: absolute;
     left: 0;
     top: 0;
@@ -218,6 +219,30 @@ img::selection {
     margin: -65px 0 0 -65px
 }
 
+.intro-click-hold-drawer path {
+    stroke: #1AFAF5;
+    stroke-width: 4px;
+}
+
+.intro-click-hold {
+    stroke: #b0b2c3;
+    stroke-width: 2px;
+}
+
+#template, #path {
+    fill: none;
+}
+
+#template {
+    stroke-width: 5px;
+    stroke: #444;
+}
+
+#path {
+    stroke: #88CE02;
+    stroke-width: 20px;
+    visibility: hidden;
+}
 
 /*Navbar*/
 
