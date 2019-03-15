@@ -122,10 +122,11 @@ img::selection {
     position: fixed;
     width: 100%;
     height: 100%;
-    background-color: black;
+    z-index: 1;
 }
 
 .headphones {
+    opacity: 1;
     position: absolute;
     display: flex;
     flex-flow: column;
@@ -149,48 +150,13 @@ img::selection {
     display: block;
 }
 
-/*Index*/
-
-.index {
-    display: none;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    background-color: black;
-    /* background: -webkit-repeating-linear-gradient( top, black 0px, transparent 2px, rgba(0, 0, 0, 0.25) 2px, rgba(0, 0, 0, 0.25) 4px); */
-    background-image: url("../assets/img/gfx/sunset2.png");
-    background-size: 145vh;
-    background-position: center top -150px;
-    background-repeat: no-repeat;
-    color: #f3f3f3;
-}
-
-#stageElement {
-    display: block;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
-.adventure {
-    /* display: none; */
-    background: url("../assets/img/gfx/adventure.png") no-repeat center;
-    background-size: 120%;
-    height: 550px;
-    width: 550px;
-    position: fixed;
-    left: 50%;
-    margin-left: -265px;
-    top: -70px;
-}
-
 .intro-container {
+    opacity: 0;
     position: absolute;
     left: 50%;
     top: 50%;
-    margin-top: -2.2vw
+    margin-top: -2.2vw;
+    /* z-index: 10; */
 }
 
 .general-octagon-container {
@@ -227,6 +193,43 @@ img::selection {
 .intro-click-hold {
     stroke: #b0b2c3;
     stroke-width: 2px;
+}
+
+
+/*Index*/
+
+.index {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    /* background: -webkit-repeating-linear-gradient( top, black 0px, transparent 2px, rgba(0, 0, 0, 0.25) 2px, rgba(0, 0, 0, 0.25) 4px); */
+    background-image: url("../assets/img/gfx/sunset2.png");
+    background-size: 145vh;
+    background-position: center top -150px;
+    background-repeat: no-repeat;
+    color: #f3f3f3;
+}
+
+#stageElement {
+    display: block;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.adventure {
+    /* display: none; */
+    background: url("../assets/img/gfx/adventure.png") no-repeat center;
+    background-size: 120%;
+    height: 550px;
+    width: 550px;
+    position: fixed;
+    left: 50%;
+    margin-left: -265px;
+    top: -70px;
 }
 
 #template, #path {
