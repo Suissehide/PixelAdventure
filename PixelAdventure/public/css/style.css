@@ -122,7 +122,6 @@ img::selection {
     position: fixed;
     width: 100%;
     height: 100%;
-    z-index: 1;
 }
 
 .headphones {
@@ -156,7 +155,6 @@ img::selection {
     left: 50%;
     top: 50%;
     margin-top: -2.2vw;
-    /* z-index: 10; */
 }
 
 .general-octagon-container {
@@ -195,10 +193,41 @@ img::selection {
     stroke-width: 2px;
 }
 
+.intro-container .intro-descriptor {
+    left: 0;
+    margin-top: 90px;
+    width: 100%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.overflow-text {
+    display: block;
+    overflow: hidden;
+    color: #b0b2c3;
+    font-size: 12px;
+}
+
+.overflow-text > span {
+    opacity: 0;
+}
+
+.intro-container .intro-descriptor span:nth-child(1) {
+    transition: 5s cubic-bezier(.52,.01,.16,1) 0s
+}
+
+.intro-container .intro-descriptor span:nth-child(2) {
+    transition: 5.2s cubic-bezier(.52,.01,.16,1) .22s
+}
+
+.intro-container .intro-descriptor span:nth-child(3) {
+    transition: 5.4s cubic-bezier(.52,.01,.16,1) .44s;
+}
 
 /*Index*/
 
 .index {
+    display: none;
     opacity: 0;
     width: 100%;
     height: 100%;
@@ -221,7 +250,6 @@ img::selection {
 }
 
 .adventure {
-    /* display: none; */
     background: url("../assets/img/gfx/adventure.png") no-repeat center;
     background-size: 120%;
     height: 550px;
@@ -408,6 +436,7 @@ img::selection {
 }
 
 .sidebar--left {
+    opacity: 0;
     top: 100%;
     left: 10px;
     transform-origin: 0 0;
@@ -418,6 +447,7 @@ img::selection {
 }
 
 .sidebar--right {
+    opacity: 0;
     bottom: 0;
     left: calc(100% - 10px);
     transform-origin: 0 100%;
@@ -588,6 +618,44 @@ footer ul {
 
 #codepen:hover path, #github:hover path {
     fill: #f3f3f3
+}
+
+.contact-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 40px;
+}
+
+.contact-button {
+    cursor: pointer;
+    position: relative;
+    background-color: #EF35FF;
+    border-color: #b0b2c3;
+    border-radius: 100%;
+    width: 42px;
+    height: 42px;
+    top: -6px;
+    transition: transform .2s ease-in;
+}
+
+.contact-button > i {
+    position: relative;
+    top: 14px;
+    left: 14px;
+}
+
+.contact-button:hover {
+    transform: scale(1.19) rotate(47deg)
+}
+.line {
+    display: block;
+    width: 2px;
+    height: 42px;
+    background-color: #b0b2c3;
+    position: relative;
+    transform: rotate(90deg) translate3d(-6px,0,0);
+    margin: 0 35px;
 }
 
 /*Custom Mouse Cursor*/
