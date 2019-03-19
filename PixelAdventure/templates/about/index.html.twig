@@ -1,20 +1,58 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Hello {{ controller_name }}!{% endblock %}
-
+{% block title %}Pixel Adventure - About me{% endblock %}
+{% block stylesheets %}{% endblock %}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'src/Controller/AboutController.php'|file_link(0) }}">src/Controller/AboutController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'templates/about/index.html.twig'|file_link(0) }}">templates/about/index.html.twig</a></code></li>
+<div class="timeline">
+    <ul class="timeline-events">
+        <li class="timeline-event-years-6-5 timeline-event-legend">
+            <span>
+                <i></i>
+                <h2>Baccalauréat</h2>
+                <h3>Lycée Gustave Eiffel, Bordeaux</h3>
+                <h4>SSI</h4>		
+            </span>
+            <i></i>
+        </li>
+        <li class="timeline-event-years-2">
+            <h2>2004-2006</h2>
+            <h3>Ideaworks Advertising</h3>
+            <h4>Interactive Designer</h4>
+        </li>
+        <li class="timeline-event-years-2">
+            <h2>2006-2008</h2>
+            <h3>Pint, Inc</h3>
+            <h4>Associate Creative Director</h4>
+        </li>
+        <li class="timeline-event-years-2">
+            <h2>2005-2007</h2>
+            <h3>Pint, Inc</h3>
+            <h4>Test</h4>
+        </li>
+        <li class="timeline-event-years-3">
+            <h2>2008-2011</h2>
+            <h3>Cuker Interactive</h3>
+            <h4>Creative</h4>
+        </li>
+        <li class="timeline-event-years-7">
+            <h2>2011-Present</h2>
+            <h3>Independent</h3>
+            <h4>Interactive Art Director</h4>
+        </li>
+    </ul>
+    <ul class="timelines-years">
+        <li>2000</li>
+        <li>2002</li>
+        <li>2004</li>
+        <li>2006</li>
+        <li>2008</li>
+        <li>2010</li>
+        <li>2012</li>
+        <li>2014</li>
+        <li>2016</li>
+        <li>2018</li>
     </ul>
 </div>
+{% endblock %}
+{% block javascripts %}
 {% endblock %}
