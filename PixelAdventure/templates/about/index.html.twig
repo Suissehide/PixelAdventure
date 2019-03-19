@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
+
 {% block title %}Pixel Adventure - About me{% endblock %}
+
 {% block stylesheets %}{% endblock %}
+
 {% block body %}
 
 <div class="timeline">
@@ -54,5 +57,8 @@
     </ul>
 </div>
 {% endblock %}
+
 {% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+    <script type="text/javascript"  src="{{ asset('js/spipa.js') }}"></script>
 {% endblock %}
