@@ -931,7 +931,7 @@ footer ul {
 /* Timeline - Years */
 
 .timeline {
-    display: none;
+    display: none; 
 }
 
 .timelines-years {
@@ -1259,8 +1259,8 @@ footer ul {
 */
 
 canvas {
-    background: white;
-    background: radial-gradient(#FFF, #DDD);
+    /* background: white; */
+    /* background: radial-gradient(#FFF, #DDD); */
     transform-origin: 0 0;
     width: 100%;
     height: 100%;
